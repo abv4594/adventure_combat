@@ -1,6 +1,8 @@
 const {Character} = require('./character');
 const {Enemy} = require('./enemy');
 const {Food} = require('./food');
+const {World} = require('./world');
+
 
 class Player extends Character {
 
@@ -22,6 +24,8 @@ class Player extends Character {
     }
   }
 
+  
+
   printInventory() {
     if (this.items.length === 0) {
       console.log(`${this.name} is not carrying anything.`);
@@ -35,32 +39,49 @@ class Player extends Character {
 
   takeItem(itemName) {
 
+    
     // Fill this in
+    
+    const item = this.currentRoom.getItemByName(itemName);
+    
+    if (item) {
+      this.currentRoom.items.splice(this.items.indexOf(item),1);
+      this.items.push(item);
+    }
 
   }
 
   dropItem(itemName) {
 
-    // Fill this in
+    const item = this.getItemByName(itemName);
+
+    if (item) {
+      this.items.splice(this.items.indexOf(item),1);
+      this.currentRoom.items.push(item);
+    }
 
   }
 
   eatItem(itemName) {
 
-    // Fill this in
+    const item = this.getItemByName(itemName);
+    if (item instanceof Food) {
+      this.items.splice(this.items.indexOf(item),1);
+    }
 
   }
 
   getItemByName(name) {
 
-    // Fill this in
+    return this.items.filter(item => item.name === name)[0]
 
   }
 
   hit(name) {
-
-    // Fill this in
-
+    const enemiesInRomm = World.getEnemiesInRoom(this.currentRoom);
+    const enemyToHit = enemiesInRomm.filter(enemy => enemy.name === name)[0];
+    enemyToHit.applyDamage(10);  
+    enemyToHit.setAttackTarget();
   }
 
   die() {

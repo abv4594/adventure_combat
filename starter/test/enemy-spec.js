@@ -138,6 +138,9 @@ describe ('Enemy', function () {
   let player;
 
   beforeEach(function() {
+
+   // World.enemies = [] // reset the list of enemies. By me.
+
     room = new Room("Test Room", "A test room");
     item = new Item("rock", "just a simple rock");
     sandwich = new Food("sandwich", "a delicious looking sandwich");
@@ -193,7 +196,6 @@ describe ('Enemy', function () {
   it('should attack the player when targetting player', function () {
 
     player.hit('enemy');
-
     enemy.cooldown = 0;
 
     expect(player.health).to.equal(100);

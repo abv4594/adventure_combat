@@ -53,7 +53,7 @@ class Room {
 
   getItemByName(name) {
 
-    // Fill this in
+    return this.items.filter(item => item.name === name)[0];
 
   }
 
@@ -61,6 +61,7 @@ class Room {
 
     // Fill this in
 
+  }
 }
 
 module.exports = {

@@ -37,15 +37,17 @@ function startGame() {
     World.loadWorld(worldData, player);
     player = new Player(name, World.rooms[1]);
     World.setPlayer(player);
+    
 
     // Show commands
     printHelp();
 
     rl.question('\nHit RETURN to start your adventure\n', () => {
 
+      
       console.clear();
       player.currentRoom.printRoom();
-
+      World.startGame();
       processCommand();
     });
   });
